@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greeting-service
+  labels:
+    app: greeting-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeting-service
+  template:
+    metadata:
+      labels:
+        app: greeting-service
+    spec:
+      containers:
+        - name: greeting-service
+          image: sagiransari/greeting:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "sh", "-c", "sleep 5" ]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_CONFIG_ADDITIONAL_LOCATION
+              value: file:/workspace/config/,file:/workspace/secret/
+          volumeMounts:
+            - name: greeting-service-mount
+              mountPath: /workspace/config
+            - name: greeting-secret-mount
+              mountPath: /workspace/secret
+      volumes:
+        - name: greeting-service-mount
+          configMap:
+            name: greeting-config
+        - name: greeting-secret-mount
+          secret:
+            secretName: greeting-secret
+

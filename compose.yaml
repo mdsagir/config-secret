@@ -1,0 +1,9 @@
+
+services:
+  demo-service:
+    image: "sagiransari/greeting:0.0.1-SNAPSHOT"
+    container_name: "greeting-service"
+    ports:
+      - "8080:8080"
+    environment:
+      - GREETING_MESSAGE=Welcome to the docker greeting message!

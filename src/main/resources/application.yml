@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: greeting-service
+greeting:
+  message: Welcome to the local greeting message!
+secret:
+  password: password
