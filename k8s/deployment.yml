@@ -28,12 +28,12 @@ spec:
             - name: SPRING_CONFIG_ADDITIONAL_LOCATION
               value: file:/workspace/config/,file:/workspace/secret/
           volumeMounts:
-            - name: greeting-service-mount
+            - name: greeting-config-mount
               mountPath: /workspace/config
             - name: greeting-secret-mount
               mountPath: /workspace/secret
       volumes:
-        - name: greeting-service-mount
+        - name: greeting-config-mount
           configMap:
             name: greeting-config
         - name: greeting-secret-mount
