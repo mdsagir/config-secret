@@ -1,0 +1,20 @@
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: greeting-service
+    path: patch-deployment.yml
+configMapGenerator:
+  - name: greeting-config
+    behavior: merge
+    files:
+      - config/application.yml
+secretGenerator:
+  - name: greeting-secret
+    behavior: merge
+    files:
+      - secret/application.yml
+    type: Opaque
+namespace: production
